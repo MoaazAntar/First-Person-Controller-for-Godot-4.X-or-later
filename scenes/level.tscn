@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://duhf6kuunuqnm"]
+
+[ext_resource type="PackedScene" uid="uid://brovywqkpmjvn" path="res://nodes/player.tscn" id="1_oufrw"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3m7n4"]
+
+[sub_resource type="Sky" id="Sky_givew"]
+sky_material = SubResource("ProceduralSkyMaterial_3m7n4")
+
+[sub_resource type="Environment" id="Environment_qlfmi"]
+background_mode = 2
+sky = SubResource("Sky_givew")
+tonemap_mode = 3
+
+[sub_resource type="BoxMesh" id="BoxMesh_dsx8t"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vkudv"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fve8h"]
+size = Vector3(10, 3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ud4gk"]
+size = Vector3(10, 3, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pi128"]
+size = Vector3(5, 1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kirpx"]
+size = Vector3(5, 1, 2)
+
+[node name="Level" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qlfmi")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7933, 0.608831, 0, -0.608831, 0.7933, 0, 0, 0)
+light_color = Color(0.956863, 1, 0.839216, 1)
+light_energy = 2.0
+
+[node name="Player" parent="." instance=ExtResource("1_oufrw")]
+max_speed_in_air = 7.0
+
+[node name="Level" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Floor"]
+mesh = SubResource("BoxMesh_dsx8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Floor"]
+shape = SubResource("BoxShape3D_vkudv")
+
+[node name="Wall" type="StaticBody3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, -10)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Wall"]
+mesh = SubResource("BoxMesh_fve8h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Wall"]
+shape = SubResource("BoxShape3D_ud4gk")
+
+[node name="Ceiling" type="StaticBody3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Level/Ceiling"]
+mesh = SubResource("BoxMesh_pi128")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/Ceiling"]
+shape = SubResource("BoxShape3D_kirpx")
