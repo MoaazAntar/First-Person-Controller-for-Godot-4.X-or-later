@@ -104,8 +104,6 @@ func set_crouching_state(crouch : bool, ignore_obstacles : bool) -> bool:
 	else:
 		if not ignore_obstacles:
 			if head_cast.is_colliding():
-				print(head_cast.get_collider(0))
-				print(head_cast.get_collider(1))
 				return false
 		
 		target_character_height = stand_height
